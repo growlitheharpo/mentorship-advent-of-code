@@ -10,7 +10,7 @@ class Program
 	{
         List<int> numbers = new List<int>();
 
-		Console.WriteLine("Hello world!");
+		Console.WriteLine("Input a number: ");
         string input = Console.ReadLine();
 
         try
