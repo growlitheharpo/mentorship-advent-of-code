@@ -28,17 +28,19 @@ int main()
 int SumOfDigits(std::vector<int>& digits)
 {
     int sum = 0;
+	int halfWay = digits.size() / 2;
+
     for (int i = 0; i < digits.size(); i++)
     {
-        if (i == digits.size() - 1)
+        if (i >= halfWay)
         {
-            if (digits[i] == digits.front())
+            if (digits[i] == digits[i-halfWay])
             {
                 sum += digits[i];
             }
         }
 
-        else if (digits[i] == digits[i + 1])
+        else if (digits[i] == digits[i + halfWay])
         {
             sum += digits[i];
         }

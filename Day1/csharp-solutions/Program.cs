@@ -11,8 +11,7 @@ class Program
         List<int> numbers = new List<int>();
 
 		Console.WriteLine("Input a number: ");
-        //string input = System.IO.File.ReadAllText("input.txt");
-        string input = Console.ReadLine();
+        string input = System.IO.File.ReadAllText("input.txt");
 
         try
         {
@@ -41,9 +40,9 @@ class Program
 
         for (int i=0; i < digits.Count; i++)
         {
-            if (i >= (digits.Count-halfWay))
+            if (i >= halfWay)
             {
-                if (digits[i] == digits[0+halfWay])
+                if (digits[i] == digits[i-halfWay])
                 {
                     sum += digits[i];
                 }
