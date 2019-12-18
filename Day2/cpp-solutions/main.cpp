@@ -12,43 +12,24 @@ public:
 	int largestNumber;
 	int difference;
 
-	int findSmallest()
-	{
-		smallestNumber = numbers[0];
-		for (int i = 0; i < numbers.size(); i++)
-		{
-			if (i == numbers.size() - 1)
-			{
-				if (numbers[i] < smallestNumber)
-				{
-					smallestNumber = numbers[i];
-				}
-			}
-			else if (numbers[i] < smallestNumber)
-			{
-				smallestNumber = numbers[i];
-			}
-		}
-		return smallestNumber;
-	}
-
-	int findLargest()
+	int findLargestAndSmallest()
 	{
 		largestNumber = numbers[0];
+        smallestNumber = numbers[0];
+
 		for (int i = 0; i < numbers.size(); i++)
 		{
-			if (i == numbers.size() - 1)
-			{
-				if (numbers[i] > largestNumber)
-				{
-					largestNumber = numbers[i];
-				}
-			}
-			else if (numbers[i] > largestNumber)
+			if (numbers[i] > largestNumber)
 			{
 				largestNumber = numbers[i];
 			}
+
+            if (numbers[i] < smallestNumber)
+            {
+                smallestNumber = numbers[i];
+            }
 		}
+
 		return largestNumber;
 	}
 
@@ -81,6 +62,7 @@ int main()
 		for (std::string newString : split(s, '\t'))
 		{
 			std::stringstream geek(newString);
+            int value = std::stoi(newString);
 
 			int x = 0;
 			geek >> x;
@@ -111,7 +93,6 @@ std::vector<std::string> split(const std::string& s, char delimiter)
 
 void rowComputations(Row& row)
 {
-	row.findLargest();
-	row.findSmallest();
+	row.findLargestAndSmallest();
 	row.findDifference();
 }

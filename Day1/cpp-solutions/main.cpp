@@ -27,23 +27,37 @@ int main()
 
 int SumOfDigits(std::vector<int>& digits)
 {
-    int sum = 0;
+    int sumA = 0;
+    int sumB = 0;
+
 	int halfWay = digits.size() / 2;
 
     for (int i = 0; i < digits.size(); i++)
     {
+        int halfwayIndex = (i + halfWay) % digits.size();
+        if (digits[i] == digits[halfwayIndex])
+        {
+            sumB += digits[i];
+        }
+
         if (i >= halfWay)
         {
             if (digits[i] == digits[i-halfWay])
             {
-                sum += digits[i];
+                sumA += digits[i];
             }
         }
 
         else if (digits[i] == digits[i + halfWay])
         {
-            sum += digits[i];
+            sumA += digits[i];
         }
     }
-    return sum;
+
+    if (sumA != sumB)
+    {
+        throw std::exception("I was wrong");
+    }
+
+    return sumA;
 }
