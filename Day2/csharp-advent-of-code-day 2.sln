@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-advent-of-code", "csharp-solutions\csharp-advent-of-code.csproj", "{F66F219C-0791-41E1-8794-6FE0B059D000}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-advent-of-code-day 2", "csharp-solutions\csharp-advent-of-code-day 2.csproj", "{F66F219C-0791-41E1-8794-6FE0B059D000}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A009371E-3723-4259-A10F-FECE914C6D5E}
+		SolutionGuid = {54B1F57B-1963-4838-B95F-A30683EA9791}
 	EndGlobalSection
 EndGlobal

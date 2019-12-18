@@ -11,13 +11,14 @@ class Program
         List<int> numbers = new List<int>();
 
 		Console.WriteLine("Input a number: ");
+        //string input = System.IO.File.ReadAllText("input.txt");
         string input = Console.ReadLine();
 
         try
         {
-            foreach (char a in input.ToCharArray())
+            foreach (char a in input)
             {
-                numbers.Add((int)Char.GetNumericValue(a));
+                numbers.Add(a - '0');
             }
             foreach (int s in numbers)
             {
@@ -36,21 +37,24 @@ class Program
     static int SumOfDigits(List<int> digits)
     {
         int sum = 0;
+        int halfWay = digits.Count / 2;
+
         for (int i=0; i < digits.Count; i++)
         {
-            if (i == digits.Count-1)
+            if (i >= (digits.Count-halfWay))
             {
-                if (digits[i] == digits.First())
+                if (digits[i] == digits[0+halfWay])
                 {
                     sum += digits[i];
                 }
             }
 
-            else if (digits[i] == digits[i+1])
+            else if (digits[i] == digits[i+halfWay])
             {
                 sum += digits[i];
             }
         }
+        Console.WriteLine(halfWay.ToString());
         return sum;
     }
 }
