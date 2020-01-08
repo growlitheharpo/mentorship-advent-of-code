@@ -11,6 +11,7 @@ public:
 	int smallestNumber;
 	int largestNumber;
 	int difference;
+	int divisionResult;
 
 	int findLargestAndSmallest()
 	{
@@ -37,6 +38,24 @@ public:
 	{
 		difference = largestNumber - smallestNumber;
 		return difference;
+	}
+
+	int findDivisibleNumbers()
+	{
+		for (int i : numbers)
+		{
+			for (int j : numbers)
+			{
+				if (i != j)
+				{
+					if (i % j == 0)
+					{
+						divisionResult = i / j;
+					}
+				}
+			}
+		}
+		return divisionResult;
 	}
 };
 
@@ -70,7 +89,7 @@ int main()
 		}
 
 		rowComputations(row);
-		checksum += row.difference;
+		checksum += row.divisionResult;
 	}
 
 
@@ -93,6 +112,5 @@ std::vector<std::string> split(const std::string& s, char delimiter)
 
 void rowComputations(Row& row)
 {
-	row.findLargestAndSmallest();
-	row.findDifference();
+	row.findDivisibleNumbers();
 }

@@ -25,7 +25,7 @@ class Program
             }
 
             RowComputations(row);
-            checksum += row.Difference;
+            checksum += row.DivisionResult;
         }
 
         Console.WriteLine("The checksum is " + checksum + ".");
@@ -33,9 +33,7 @@ class Program
 
     static void RowComputations(Row row)
     {
-        row.FindLargest();
-        row.FindSmallest();
-        row.FindDifference();
+        row.FindDivisibleNumbers();
     }
 }
 
@@ -45,6 +43,7 @@ public class Row
     int smallestNumber;
     int largestNumber;
     int difference;
+    int divisionResult;
 
     public List<int> Numbers
     {
@@ -94,6 +93,18 @@ public class Row
         }
     }
 
+    public int DivisionResult
+    {
+        set
+        {
+            divisionResult = value;
+        }
+        get
+        {
+            return divisionResult;
+        }
+    }
+
     public int FindSmallest()
     {
         SmallestNumber = Numbers[0];
@@ -140,5 +151,23 @@ public class Row
     {
         Difference = LargestNumber - SmallestNumber;
         return Difference;
+    }
+
+    public int FindDivisibleNumbers()
+    {
+        foreach (int i in numbers)
+        {
+            foreach (int j in numbers)
+            {
+                if (i != j)
+                {
+                    if (i % j == 0)
+                    {
+                        divisionResult = i / j;
+                    }
+                }
+            }
+        }
+        return divisionResult;
     }
 }
