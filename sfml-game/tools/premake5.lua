@@ -1,5 +1,5 @@
 function get_root_location()
-	return "%{wks.location}/../"
+	return "%{wks.location}/"
 end
 
 function get_output_location(prj_name)
@@ -17,14 +17,14 @@ function include_self()
 end
 
 function set_location()
-	location "%{wks.location}/proj/%{prj.name}/"
+	location "%{wks.location}/build/proj/%{prj.name}/"
 end
 
 workspace "fun-with-sfml"
-	location "build/"
+	location "../"
 	language "C++"
 	cppdialect "c++17"
-	startproject "sfml-demo"
+	startproject "game-code"
 
 	architecture "x86_64"
 	configurations { "Debug", "Release" }
@@ -46,10 +46,10 @@ workspace "fun-with-sfml"
 		"FatalWarnings"
 	}
 
-	targetdir ("build/bin/%{prj.name}/%{cfg.longname}")
-	objdir ("build/obj/%{prj.name}/%{cfg.longname}")
+	targetdir ("%{wks.location}/build/bin/%{prj.name}/%{cfg.longname}")
+	objdir ("%{wks.location}/build/obj/%{prj.name}/%{cfg.longname}")
 
-include "external/"
+include "../external/"
 
 group "*"
 
@@ -63,14 +63,14 @@ project "game-code"
 	}
 
 	files {
-		"game-code/**.h",
-		"game-code/**.cpp",
-		"game-code/**.c",
+		get_root_location() .. "game-code/**.h",
+		get_root_location() .. "game-code/**.cpp",
+		get_root_location() .. "game-code/**.c",
 	}
 
 	includedirs {
 		get_root_location() .. "external/sfml/include/",
-		"game-code/",
+		get_root_location() .. "game-code/",
 	}
 
 	dependson {
