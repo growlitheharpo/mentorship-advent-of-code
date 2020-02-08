@@ -4,15 +4,15 @@ using namespace sf;
 
 int WinMain()
 {
-    int windowWidth = 800;
-    int windowHeight = 600;
+    int windowWidth = 1280;
+    int windowHeight = 720;
     int windowStyle = Style::Titlebar | Style::Close | Style::Resize;
 
-    RenderWindow window(VideoMode(windowWidth, windowHeight), "SFML Works!!", windowStyle);
+    RenderWindow window(VideoMode(windowWidth, windowHeight), "Checkers - Mentorship Project", windowStyle);
 
     CircleShape player;
     player.setRadius(20.0f);
-    player.setFillColor(Color::Green);
+    player.setFillColor(Color::Yellow);
 
     // Put the player in the center of the screen (width and height divided by 2)
     // We also have to subtract the radius, because the "position" is actually the
