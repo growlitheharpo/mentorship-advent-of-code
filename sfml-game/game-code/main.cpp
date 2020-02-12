@@ -1,5 +1,26 @@
 #include <SFML/Graphics.hpp>
 
+struct CheckersPiece
+{
+    int player;
+    bool isKing;
+};
+
+enum BoardSpaceColor
+{
+    Black,
+    White
+};
+
+struct BoardSpace
+{
+    CheckersPiece* piece = nullptr;
+    BoardSpaceColor color;
+    sf::RectangleShape shape;
+    int x;
+    int y;
+};
+
 using namespace sf;
 enum GameState
 {
@@ -10,6 +31,36 @@ enum GameState
 };
 int WinMain()
 {
+    BoardSpace board[8][8];
+    CheckersPiece player1Pieces[12];
+    //CheckersPiece player2Pieces[12];
+
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            if ((i + j) % 2 == 0)
+            {
+                board[i][j].color = Black;
+                board[i][j].shape.setFillColor(Color::Black);
+            }
+            else
+            {
+                board[i][j].color = White;
+                board[i][j].shape.setFillColor(Color::White);
+            }
+
+            board[i][j].x = i;
+            board[i][j].x = j;
+        }
+    }
+
+    // do some stuff to "move" the pieces to the starting positions
+    board[0][0].piece = &player1Pieces[0];
+    board[0][1].piece = &player1Pieces[1];
+    board[0][2].piece = &player1Pieces[2];
+
+
 	GameState gameState = START;
     int windowWidth = 1280;
     int windowHeight = 720;
@@ -79,7 +130,21 @@ int WinMain()
             }
         }
 
-        window.clear();
+        window.clear(Color::Magenta);
+
+        int targetBoardSize = windowHeight;
+        int adjustX = (windowWidth - targetBoardSize) / 2;
+
+        int boardSquareSize = targetBoardSize / 8;
+        for (int i = 0; i < 8; ++i)
+        {
+            for (int j = 0; j < 8; ++j)
+            {
+                board[i][j].shape.setSize(Vector2f(boardSquareSize, boardSquareSize));
+                board[i][j].shape.setPosition(Vector2f(i * boardSquareSize + adjustX, j * boardSquareSize));
+                window.draw(board[i][j].shape);
+            }
+        }
 
         // Draw all your things here, between clear() and display()
         window.draw(player);
