@@ -42,9 +42,7 @@ workspace "fun-with-sfml"
 
 	filter {}
 
-	flags {
-		"FatalWarnings"
-	}
+    warnings "Off"
 
 	targetdir ("%{wks.location}/build/bin/%{prj.name}/%{cfg.longname}")
 	objdir ("%{wks.location}/build/obj/%{prj.name}/%{cfg.longname}")
