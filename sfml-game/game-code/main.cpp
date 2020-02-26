@@ -34,13 +34,17 @@ void SetUpGameBoard()
 		}
 	}
 
-	for (CheckersPiece piece : player1Pieces)
+	board[0][0].piece = &player2Pieces[0];
+
+	for (CheckersPiece& piece : player1Pieces)
 	{
 		piece.shape.setFillColor(Color::Red);
+		piece.player = 0;
 	}
-	for (CheckersPiece piece : player2Pieces)
+	for (CheckersPiece& piece : player2Pieces)
 	{
 		piece.shape.setFillColor(Color::Black);
+		piece.player = 1;
 	}
 }
 int WinMain()
@@ -52,24 +56,28 @@ int WinMain()
 
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Checkers - Mentorship Project", windowStyle);
 
-    CircleShape player;
-    player.setRadius(20.0f);
-    player.setFillColor(Color::Yellow);
-
-    // Put the player in the center of the screen (width and height divided by 2)
-    // We also have to subtract the radius, because the "position" is actually the
-    // top left corner, not the center.
-    Vector2f playerPosition;
-    playerPosition.x = (windowWidth / 2.0f) - player.getRadius();
-    playerPosition.y = (windowHeight / 2.0f) - player.getRadius();
-
-    player.setPosition(playerPosition);
+	
 
     while (window.isOpen())
     {
         Event sfmlEvent;
         while (window.pollEvent(sfmlEvent))
         {
+			switch (gameState)
+			{
+			case START:
+				SetUpGameBoard();
+				break;
+			case FIRST_PLAYER_TURN:
+				break;
+			case SECOND_PLAYER_TURN:
+				break;
+			case GAME_OVER:
+				gameState = START;
+				break;
+			default:
+				break;
+			}
 			if (gameState == GAME_OVER)
 			{
 				if (sfmlEvent.type == Event::MouseButtonPressed)
@@ -108,6 +116,13 @@ int WinMain()
 				board[i][j].shape.setSize(Vector2f(boardSquareSize, boardSquareSize));
 				board[i][j].shape.setPosition(Vector2f(i * boardSquareSize + adjustX, j * boardSquareSize));
 				window.draw(board[i][j].shape);
+
+				if (board[i][j].piece != nullptr)
+				{
+					board[i][j].piece->shape.setPosition(board[i][j].shape.getPosition());
+					board[i][j].piece->shape.setRadius(boardSquareSize / 2);
+					window.draw(board[i][j].piece->shape);
+				}
 			}
 		}
 
