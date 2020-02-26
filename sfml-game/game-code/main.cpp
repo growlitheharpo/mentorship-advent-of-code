@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Board.h"
 
 using namespace sf;
 enum GameState
@@ -8,6 +9,40 @@ enum GameState
 	SECOND_PLAYER_TURN,
 	GAME_OVER
 };
+
+BoardSpace board[8][8];
+CheckersPiece player1Pieces[12];
+CheckersPiece player2Pieces[12];
+
+void SetUpGameBoard()
+{
+
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if ((i + j) % 2 == 0) // if even, board space is white
+			{
+				board[i][j].color = 0;
+				board[i][j].shape.setFillColor(Color::White);
+			}
+			else // if odd, board space is red
+			{
+				board[i][j].color = 1;
+				board[i][j].shape.setFillColor(Color::Red);
+			}
+		}
+	}
+
+	for (CheckersPiece piece : player1Pieces)
+	{
+		piece.shape.setFillColor(Color::Red);
+	}
+	for (CheckersPiece piece : player2Pieces)
+	{
+		piece.shape.setFillColor(Color::Black);
+	}
+}
 int WinMain()
 {
 	GameState gameState = START;
@@ -52,26 +87,6 @@ int WinMain()
             // For example:
             if (sfmlEvent.type == Event::KeyPressed)
             {
-				if (sfmlEvent.key.code == Keyboard::W || sfmlEvent.key.code == Keyboard::Up)
-				{
-					playerPosition.y -= 5;
-					player.setPosition(playerPosition);
-				}
-				else if (sfmlEvent.key.code == Keyboard::A || sfmlEvent.key.code == Keyboard::Left)
-				{
-					playerPosition.x -= 5;
-					player.setPosition(playerPosition);
-				}
-				else if (sfmlEvent.key.code == Keyboard::S || sfmlEvent.key.code == Keyboard::Down)
-				{
-					playerPosition.y += 5;
-					player.setPosition(playerPosition);
-				}
-				else if (sfmlEvent.key.code == Keyboard::D || sfmlEvent.key.code == Keyboard::Right)
-				{
-					playerPosition.x += 5;
-					player.setPosition(playerPosition);
-				}
             }
             else if (sfmlEvent.type == Event::Closed)
             {
@@ -81,8 +96,20 @@ int WinMain()
 
         window.clear();
 
-        // Draw all your things here, between clear() and display()
-        window.draw(player);
+		int targetBoardSize = windowHeight;
+		int adjustX = (windowWidth - targetBoardSize) / 2;
+
+		int boardSquareSize = targetBoardSize / 8;
+
+		for (int i = 0; i < 8; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				board[i][j].shape.setSize(Vector2f(boardSquareSize, boardSquareSize));
+				board[i][j].shape.setPosition(Vector2f(i * boardSquareSize + adjustX, j * boardSquareSize));
+				window.draw(board[i][j].shape);
+			}
+		}
 
 
         window.display();
