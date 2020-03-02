@@ -33,8 +33,33 @@ void SetUpGameBoard()
 			}
 		}
 	}
+	// Set up Players 1s Pieces
+	int k = 0;
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1)
+			{
+				board[i][j].piece = &player1Pieces[k];
+				k++;
+			}
+		}
+	}
 
-	board[0][0].piece = &player2Pieces[0];
+	// Set up Player 2's Pieces
+	int m = 0;
+	for (int j = 7; j > 4; j--)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1)
+			{
+				board[i][j].piece = &player2Pieces[m];
+				m++;
+			}
+		}
+	}
 
 	for (CheckersPiece& piece : player1Pieces)
 	{
@@ -47,6 +72,7 @@ void SetUpGameBoard()
 		piece.player = 1;
 	}
 }
+
 int WinMain()
 {
 	GameState gameState = START;
@@ -119,8 +145,9 @@ int WinMain()
 
 				if (board[i][j].piece != nullptr)
 				{
-					board[i][j].piece->shape.setPosition(board[i][j].shape.getPosition());
-					board[i][j].piece->shape.setRadius(boardSquareSize / 2);
+					Vector2f middle = board[i][j].shape.getPosition();
+					board[i][j].piece->shape.setRadius(30.0f);
+					board[i][j].piece->shape.setPosition(Vector2f((middle.x + (boardSquareSize / 8.0f)), middle.y + (boardSquareSize / 8.0f)));
 					window.draw(board[i][j].piece->shape);
 				}
 			}
