@@ -13,10 +13,12 @@ enum GameState
 BoardSpace board[8][8];
 CheckersPiece player1Pieces[12];
 CheckersPiece player2Pieces[12];
+GameState gameState = START;
+
 
 void SetUpGameBoard()
 {
-
+	//Set Up the board
 	for (int i = 0; i < 8; ++i)
 	{
 		for (int j = 0; j < 8; ++j)
@@ -33,9 +35,22 @@ void SetUpGameBoard()
 			}
 		}
 	}
-	// Set up Players 1s Pieces
+
+	// Change the color of both pieces
+	for (CheckersPiece& piece : player1Pieces)
+	{
+		piece.shape.setFillColor(Color::Black);
+		piece.player = 1;
+	}
+	for (CheckersPiece& piece : player2Pieces)
+	{
+		piece.shape.setFillColor(Color::Red);
+		piece.player = 2;
+	}
+
+	// Set up Player 1's Pieces
 	int k = 0;
-	for (int j = 0; j < 3; j++)
+	for (int j = 7; j > 4; j--)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -47,9 +62,9 @@ void SetUpGameBoard()
 		}
 	}
 
-	// Set up Player 2's Pieces
+	// Set up Players 2's Pieces
 	int m = 0;
-	for (int j = 7; j > 4; j--)
+	for (int j = 0; j < 3; j++)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -61,21 +76,11 @@ void SetUpGameBoard()
 		}
 	}
 
-	for (CheckersPiece& piece : player1Pieces)
-	{
-		piece.shape.setFillColor(Color::Red);
-		piece.player = 0;
-	}
-	for (CheckersPiece& piece : player2Pieces)
-	{
-		piece.shape.setFillColor(Color::Black);
-		piece.player = 1;
-	}
+	gameState = FIRST_PLAYER_TURN;
 }
 
 int WinMain()
 {
-	GameState gameState = START;
     int windowWidth = 1280;
     int windowHeight = 720;
     int windowStyle = Style::Titlebar | Style::Close | Style::Resize;
@@ -95,6 +100,21 @@ int WinMain()
 				SetUpGameBoard();
 				break;
 			case FIRST_PLAYER_TURN:
+				if (sfmlEvent.type == Event::MouseButtonPressed)
+				{
+					if (sfmlEvent.mouseButton.button == Mouse::Left)
+					{
+						float mouseX = (float) Mouse::getPosition().x;
+						float mouseY = (float) Mouse::getPosition().y;
+						for (CheckersPiece& piece : player1Pieces)
+						{
+							if (Vector2f(mouseX, mouseY) == piece.shape.getPosition())
+							{
+								piece.shape.setFillColor(Color::Yellow);
+							}
+						}
+					}
+				}
 				break;
 			case SECOND_PLAYER_TURN:
 				break;

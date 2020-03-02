@@ -8,6 +8,7 @@ struct CheckersPiece
 	int player;
 	bool isKing;
 	CircleShape shape;
+	bool isChosen;
 };
 
 struct BoardSpace
